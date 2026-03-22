@@ -5,6 +5,15 @@ CLI tool to search and download original Xbox game covers.
 It uses the public libretro thumbnail repository as the image source:
 - https://github.com/libretro-thumbnails/Microsoft_-_Xbox
 
+## Download Pre-Built Apps
+
+Don't want to use Python? Download the ready-to-use app:
+
+- **[macOS](https://github.com/tackableclient91/og-xbox-cover-downloader/releases)** - Download `OG-Xbox-Cover-Downloader-macOS.zip`, unzip, and run
+- **[Windows](https://github.com/tackableclient91/og-xbox-cover-downloader/releases)** - Download `OG-Xbox-Cover-Downloader-Windows.zip`, extract, and run
+
+Both apps work without needing Python installed!
+
 ## Requirements
 
 - Python 3.9+

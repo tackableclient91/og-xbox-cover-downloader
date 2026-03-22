@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-macos:
     runs-on: macos-latest
@@ -76,6 +79,8 @@ jobs:
     needs: [build-macos, build-windows]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       
@@ -92,12 +97,6 @@ jobs:
             # OG Xbox Cover Downloader Release
             
             Pre-built executables for macOS and Windows.
-            
-            ## macOS
-            - Download `OG-Xbox-Cover-Downloader-macOS.zip`
-            - Unzip and double-click the app
-            - Allow network permission if prompted
-            - Works on any Mac (Apple Silicon or Intel)
             
             ## Windows
             - Download `OG-Xbox-Cover-Downloader-Windows.zip`
