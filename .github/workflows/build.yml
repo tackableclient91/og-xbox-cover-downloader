@@ -108,4 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd release-files
+          # Delete old release if it exists
+          gh release delete ${{ github.ref_name }} --yes || true
+          # Create new release with latest builds
           gh release create ${{ github.ref_name }} *.zip --title "${{ github.ref_name }}: OG Xbox Cover Downloader" --notes "Pre-built executables for macOS and Windows."
