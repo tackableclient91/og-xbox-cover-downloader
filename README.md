@@ -14,12 +14,24 @@ No Python? Download ready-to-use apps:
 
 Both work without needing Python!
 
-### macOS - Bypass Security Warning (If Needed)
+### macOS - One-Click Setup
 
-If you see a "can't verify if it's malware free" warning:
+1. Download `OG-Xbox-Cover-Downloader-macOS.zip`
+2. Unzip it
+3. **Double-click `Setup-macOS.command`** (it looks like a script)
+4. Done! The app will open automatically
 
-**Option 1: Right-click to Open (Easiest)**
-1. Right-click the app
+If you see a security warning about the Setup script:
+- Right-click it and choose "Open"
+
+That's it! The setup script handles everything and launches the app.
+
+### macOS - Manual Override (If Needed)
+
+If the Setup script didn't work or you prefer the terminal:
+
+**Option 1: Right-click the App**
+1. Right-click "OG Xbox Cover Downloader.app"
 2. Click "Open"
 3. Click "Open" when prompted
 
@@ -30,11 +42,6 @@ unzip OG-Xbox-Cover-Downloader-macOS.zip
 xattr -d com.apple.quarantine "OG Xbox Cover Downloader.app"
 open "OG Xbox Cover Downloader.app"
 ```
-
-**Option 3: System Settings**
-1. Try to open the app (it will be blocked)
-2. Go to System Settings > Privacy & Security
-3. Scroll down and click "Open Anyway" next to the app
 
 ## CLI Usage
 

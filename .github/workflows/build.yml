@@ -41,8 +41,10 @@ jobs:
       
       - name: Create macOS release zip
         run: |
+          cp Setup-macOS.command dist/
+          chmod +x dist/Setup-macOS.command
           cd dist
-          zip -r "OG-Xbox-Cover-Downloader-macOS.zip" "OG Xbox Cover Downloader.app"
+          zip -r "OG-Xbox-Cover-Downloader-macOS.zip" "OG Xbox Cover Downloader.app" "Setup-macOS.command"
       
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
