@@ -34,6 +34,11 @@ jobs:
             --windowed \
             xbox_cover_desktop.py
       
+      - name: Code sign macOS app
+        run: |
+          codesign -s - --deep --force "dist/OG Xbox Cover Downloader.app" || true
+          xattr -d com.apple.quarantine "dist/OG Xbox Cover Downloader.app" || true
+      
       - name: Create macOS release zip
         run: |
           cd dist
