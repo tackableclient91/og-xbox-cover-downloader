@@ -109,12 +109,3 @@ jobs:
         run: |
           cd release-files
           gh release create ${{ github.ref_name }} *.zip --title "${{ github.ref_name }}: OG Xbox Cover Downloader" --notes "Pre-built executables for macOS and Windows."
-            
-            ## Windows
-            - Download `OG-Xbox-Cover-Downloader-Windows.zip`
-            - Unzip the folder
-            - Run `OG-Xbox-Cover-Downloader.exe` inside
-            
-            No Python installation needed!
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
