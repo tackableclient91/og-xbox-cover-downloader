@@ -84,19 +84,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Download all artifacts
+      - name: Download macOS artifact
         uses: actions/download-artifact@v4
+        with:
+          name: macos-app
+          path: ./release-files
+      
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-app
+          path: ./release-files
       
       - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            macos-app/*.zip
-            windows-app/*.zip
-          body: |
-            # OG Xbox Cover Downloader Release
-            
-            Pre-built executables for macOS and Windows.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd release-files
+          gh release create ${{ github.ref_name }} *.zip --title "${{ github.ref_name }}: OG Xbox Cover Downloader" --notes "Pre-built executables for macOS and Windows."
             
             ## Windows
             - Download `OG-Xbox-Cover-Downloader-Windows.zip`
