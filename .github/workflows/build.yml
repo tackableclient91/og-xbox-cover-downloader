@@ -1,0 +1,114 @@
+name: Build macOS and Windows Apps
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      
+      - name: Build macOS app
+        run: |
+          python -m PyInstaller \
+            --name "OG Xbox Cover Downloader" \
+            --onedir \
+            --windowed \
+            xbox_cover_desktop.py
+      
+      - name: Create macOS release zip
+        run: |
+          cd dist
+          zip -r "OG-Xbox-Cover-Downloader-macOS.zip" "OG Xbox Cover Downloader.app"
+      
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-app
+          path: dist/OG-Xbox-Cover-Downloader-macOS.zip
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      
+      - name: Build Windows exe
+        run: |
+          python -m PyInstaller ^
+            --name "OG-Xbox-Cover-Downloader" ^
+            --onedir ^
+            --windowed ^
+            xbox_cover_desktop.py
+      
+      - name: Create Windows release zip
+        run: |
+          cd dist
+          powershell Compress-Archive -Path "OG-Xbox-Cover-Downloader" -DestinationPath "OG-Xbox-Cover-Downloader-Windows.zip"
+      
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-app
+          path: dist/OG-Xbox-Cover-Downloader-Windows.zip
+
+  release:
+    needs: [build-macos, build-windows]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            macos-app/*.zip
+            windows-app/*.zip
+          body: |
+            # OG Xbox Cover Downloader Release
+            
+            Pre-built executables for macOS and Windows.
+            
+            ## macOS
+            - Download `OG-Xbox-Cover-Downloader-macOS.zip`
+            - Unzip and double-click the app
+            - Allow network permission if prompted
+            - Works on any Mac (Apple Silicon or Intel)
+            
+            ## Windows
+            - Download `OG-Xbox-Cover-Downloader-Windows.zip`
+            - Unzip the folder
+            - Run `OG-Xbox-Cover-Downloader.exe` inside
+            
+            No Python installation needed!
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

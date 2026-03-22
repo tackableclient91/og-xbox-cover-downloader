@@ -1,0 +1,30 @@
+# Build and dist
+build/
+dist/
+releases/
+*.spec
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.Python
+
+# Cache
+.cache/
+*.cache
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+Thumbs.db
+
+# Platform-specific binaries (don't commit these)
+platform-tools-latest-darwin.zip
+scrcpy-macos-aarch64-v3.3.4.tar.gz
