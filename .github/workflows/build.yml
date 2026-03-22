@@ -59,12 +59,7 @@ jobs:
           pip install pyinstaller
       
       - name: Build Windows exe
-        run: |
-          python -m PyInstaller ^
-            --name "OG-Xbox-Cover-Downloader" ^
-            --onedir ^
-            --windowed ^
-            xbox_cover_desktop.py
+        run: python -m PyInstaller --name "OG-Xbox-Cover-Downloader" --onedir --windowed xbox_cover_desktop.py
       
       - name: Create Windows release zip
         run: |
